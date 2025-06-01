@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AV8.AI - Revolutionize Your AI Partnership Strategy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff3333;
+        }
+
+        .logo::before {
+            content: "";
+            width: 40px;
+            height: 40px;
+            background: #ff3333;
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff3333;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff3333, #ff6666, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff3333, #ff6666);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 51, 51, 0.4);
+        }
+
+        /* 3D Visualization Container */
+        .visualization-container {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #ecosystem-3d {
+            width: 100%;
+            height: 100%;
+        }
+
+        .viz-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff3333, #ff6666);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* Lead Capture Section */
+        .lead-capture {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ff3333, #ff6666, #ff3333);
+        }
+
+        .lead-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #ccc;
+        }
+
+        .submit-btn {
+            background: #fff;
+            color: #ff3333;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a1a;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">AV8.AI</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Revolutionize Your AI Partnership Strategy</h1>
+                    <p>Navigate the AI ecosystem with our interactive 3D visualization platform. Find, evaluate, and engage the perfect AI technology partners faster than ever before.</p>
+                    <a href="#demo" class="cta-button">Experience the Future</a>
+                </div>
+                <div class="visualization-container floating">
+                    <canvas id="ecosystem-3d"></canvas>
+                    <div class="viz-overlay">
+                        <strong>Interactive 3D Ecosystem</strong><br>
+                        Click and drag to explore<br>
+                        Scroll to zoom
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Why Choose AV8.AI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Our advanced AI analyzes millions of companies to find perfect matches based on your specific product needs, market goals, and business objectives.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>3D Ecosystem Visualization</h3>
+                    <p>Navigate an immersive 3D environment that visually maps potential partners around your product, organized by capabilities and target markets.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Strategic Partnership Proposals</h3>
+                    <p>Get customized partnership frameworks with value impact assessments and integration specifics to maximize collaboration potential.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Accelerated Growth</h3>
+                    <p>Reduce time-to-market and minimize partnership risks while uncovering hidden opportunities that traditional methods miss.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Comprehensive Analysis</h3>
+                    <p>Access detailed insights into funding, technological value, revenue, and employee count to make informed partnership decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Competitive Edge</h3>
+                    <p>Stay ahead with cutting-edge AI partnerships that differentiate your product and accelerate development cycles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lead-capture" id="demo">
+        <div class="container">
+            <div class="lead-form">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Ready to Transform Your Partnership Strategy?</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Schedule a personalized demo and see how AV8.AI can revolutionize your AI partnership discovery process.</p>
+                
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name *</label>
+                        <input type="text" id="company" name="company" required placeholder="Your company">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Job Title *</label>
+                        <input type="text" id="title" name="title" required placeholder="Your job title">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-size">Company Size</label>
+                        <select id="company-size" name="company-size">
+                            <option value="">Select company size</option>
+                            <option value="1-10">1-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201-1000">201-1000 employees</option>
+                            <option value="1000+">1000+ employees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="use-case">Primary Use Case</label>
+                        <textarea id="use-case" name="use-case" rows="3" placeholder="Describe your AI partnership needs or current challenges..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+                    <button type="submit" class="submit-btn">Schedule My Demo</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">AV8.AI</div>
+            <p>&copy; 2025 AV8.AI. All rights reserved. | Optimize. Engage. Partner.</p>
+            <p style="margin-top: 1rem;">Contact: demo@av8.ai | +1 (555) AV8-TECH</p>
+        </div>
+    </footer>
+
+    <script>
+        // 3D Ecosystem Visualization
+        let scene, camera, renderer, particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function init3D() {
+            const canvas = document.getElementById('ecosystem-3d');
+            const container = canvas.parentElement;
+            
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
+            renderer.setClearColor(0x000000, 0);
+
+            // Create partner nodes
+            const partnerTypes = [
+                { name: 'LLM Providers', color: 0xff3333, count: 12 },
+                { name: 'Data Sources', color: 0x33ff33, count: 8 },
+                { name: 'ML Frameworks', color: 0x3333ff, count: 15 },
+                { name: 'Cloud Services', color: 0xffff33, count: 10 },
+                { name: 'Analytics', color: 0xff33ff, count: 6 }
+            ];
+
+            partnerTypes.forEach((type, typeIndex) => {
+                for (let i = 0; i < type.count; i++) {
+                    const geometry = new THREE.SphereGeometry(0.1 + Math.random() * 0.1, 8, 6);
+                    const material = new THREE.MeshBasicMaterial({ 
+                        color: type.color,
+                        transparent: true,
+                        opacity: 0.8
+                    });
+                    const sphere = new THREE.Mesh(geometry, material);
+                    
+                    // Position in clusters
+                    const angle = (i / type.count) * Math.PI * 2;
+                    const radius = 2 + typeIndex * 0.8;
+                    sphere.position.x = Math.cos(angle) * radius + (Math.random() - 0.5) * 0.5;
+                    sphere.position.y = Math.sin(angle) * radius + (Math.random() - 0.5) * 0.5;
+                    sphere.position.z = (Math.random() - 0.5) * 2;
+                    
+                    sphere.userData = { 
+                        originalY: sphere.position.y,
+                        type: type.name,
+                        speed: 0.01 + Math.random() * 0.01
+                    };
+                    
+                    scene.add(sphere);
+                    particles.push(sphere);
+                }
+            });
+
+            // Add connections
+            const lineGeometry = new THREE.BufferGeometry();
+            const positions = [];
+            const colors = [];
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    if (Math.random() < 0.1) { // 10% chance of connection
+                        positions.push(
+                            particles[i].position.x, particles[i].position.y, particles[i].position.z,
+                            particles[j].position.x, particles[j].position.y, particles[j].position.z
+                        );
+                        colors.push(0.5, 0.5, 1, 0.5, 0.5, 1);
+                    }
+                }
+            }
+
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            lineGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            
+            const lineMaterial = new THREE.LineBasicMaterial({ 
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lines);
+
+            camera.position.z = 8;
+
+            // Mouse interaction
+            container.addEventListener('mousemove', (event) => {
+                const rect = container.getBoundingClientRect();
+                mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            });
+
+            // Mouse wheel zoom
+            container.addEventListener('wheel', (event) => {
+                camera.position.z += event.deltaY * 0.01;
+                camera.position.z = Math.max(3, Math.min(15, camera.position.z));
+            });
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate scene based on mouse
+            scene.rotation.y += (mouseX * 0.5 - scene.rotation.y) * 0.05;
+            scene.rotation.x += (mouseY * 0.5 - scene.rotation.x) * 0.05;
+
+            // Animate particles
+            particles.forEach((particle, index) => {
+                particle.position.y = particle.userData.originalY + Math.sin(Date.now() * particle.userData.speed + index) * 0.1;
+                particle.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Form handling
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Scheduling...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you! We\'ll be in touch within 24 hours to schedule your personalized demo.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize 3D visualization when page loads
+        window.addEventListener('load', init3D);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (renderer && camera) {
+                const container = document.getElementById('ecosystem-3d').parentElement;
+                camera.aspect = container.offsetWidth / container.offsetHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+        });
+    </script>
+</body>
+</html>
